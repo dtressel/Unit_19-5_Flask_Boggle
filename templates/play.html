@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Big Boggle - Play!{% endblock %}
+
+{% block content %}
+    <aside id="left-side">
+        <div id="left-side-wrapper">
+            <h3>Found Words:</h3>
+            <ul></ul>
+        </div>
+    </aside>
+    <div id="board-wrapper" class="text-invisible">
+        {% for row in boggle_game.board %}
+        {% set i = loop.index0 %}
+        <div id="horcont{{i}}" class="horcont">
+            {% for spot in boggle_game.board[i] %}
+            <div id="{{i * 10 + loop.index0}}" class="board-spot">{{boggle_game.board[i][loop.index0]}}</div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <div id="game-over-popup" class="hidden">
+            <div id="popup-closeX" class="closeX">&#10006</div>
+            <h3>Game Over!</h3>
+            <p>Score: <span id="game-over-score"></span></p>
+            <p>Words Found: <span id="popup-words-found"></span></p>
+            <p>Close window and press start to play again!</p>
+        </div>
+    </div>
+    <aside id="right-side">
+        <div id="timer-wrapper">
+            <div>
+                <p>Timer:</p>
+                <p id="timer">1:00</p>
+            </div>
+        </div>
+        <div id="score-wrapper">
+            <div>
+                <p>Score:</p>
+                <p id="score">0</p>
+            </div>
+        </div>
+    </aside>
+    <div id="start-button-div" class="flex-center">
+        <button id="start-button">Start</button>
+    </div>
+    <form id="word-guess-form" class="hidden">
+        <input type="text" id="word-guess-input">
+        <button type="submit">Submit</button>
+    </form>
+    <div id="word-guess-error-message" class="text-center">
+        <p></p>
+    </div>
+    <div id="game-stats">
+        <h3>All-Time Stats:</h3>
+        <p>Highest Score: <span id="highest-score"></span></p>
+        <p>Games Played: <span id="games-played"></span></p>
+    </div>
+{% endblock %}
+
+{% block script%}
+    <script src="/static/play.js"></script>
+{% endblock %}
